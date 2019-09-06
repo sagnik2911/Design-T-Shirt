@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<userData>
+    <loginData>
+         <username></username>
+         <password></password>
+    </loginData>
+    <designData>
+          <design></design>
+          <unicolor r="" b="" g=""></unicolor>
+          <multicolor>
+                <color1 r="" b="" g=""></color1>
+                <color2 r="" b="" g=""></color2>
+          </multicolor>
+          <logo></logo>
+          <kitName></kitName>
+          <kitNumber></kitNumber>
+    </designData>
+</userData>         

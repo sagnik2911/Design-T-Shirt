@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Design Page</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+  <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+  <script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+  <link rel="stylesheet" href="http:/resources/demos/style.css">
+  <style>
+  .draggable { width: 50px; height: 50px; z-index:3; }
+      #droppable {
+      z-index:1;
+      }
+  </style> 
+  <script type='text/javascript'>
+	$(function () {
+	     var str1 = '<?xml version="1.0" encoding="utf-8"?><Kit>';
+          $(".draggable").draggable({ revert: "invalid" });
+          $("#droppable").droppable({
+             
+             
+              drop: function (event, ui) {
+                  
+                  $(this)
+                    .find("img")
+                      .addClass("ui-state-highlight");
+                  $(this).find("label").html("20");
+                  var str = ui.draggable.attr("id").substring(0,4);    
+				  if(str == "Logo")
+					str1 += '<Logo>'+ui.draggable.attr("id")+'</Logo>';
+				  else	
+				    str1 += '<Sponsor>'+ui.draggable.attr("id")+'</Sponsor>';
+                  alert(str1);
+              }
+          });
+		  $('#sub').click(function () {
+              
+            str1 += '<name>' + $("#name").val() + '</name></Kit>';
+            alert(str1);
+			var http = new XMLHttpRequest();
+			var url = "/cgi-bin/edi-handler.pl";
+			var data = str1;
+			http.open("POST", url, true);
+		
+		
+			http.setRequestHeader("Content-type", "text/xml");
+			http.setRequestHeader("Content-length", data.length);
+			http.setRequestHeader("Connection", "close");
+	
+			http.onreadystatechange = function() {//Call a function when the state changes.
+				if(http.readyState == 4 && http.status == 200) {
+					alert(http.responseText);
+					window.location.href = "index.html";
+				}
+			}; http.send(data);
+			alert(data);
+        });
+	});
+</script>
+  
+  <style>  
+  .bg-1{
+  background-color: #339933;
+  }
+  .bg-2 { 
+      background-color: #1abc9c; 
+      color: #ffffff;
+  }
+  .bg-3 { 
+      background-color: #006666; 
+      color: #ffffff;
+      padding-top: 15px;
+      padding-bottom: 15px;
+      border: 0;
+      border-radius: 0;
+      margin-bottom: 0;
+      letter-spacing: 2px;  }
+	.bg-4{
+  background-color: #150e15;
+  }
+  .bg-4{
+  background-image: url("image.jpg");
+  background-position: right bottom;
+  }
+  </style>
+</head>
+<body>
+
+<div class="row bg-3">
+   <div class="col-sm-6 text-center">
+   Hello User
+   </div>
+   <div class="col-sm-6">
+  </div>
+</div>
+
+<div class="container-fluid row bg-2 text-center">
+  <div class="col-sm-12">
+  <h3 class="margin">Drag and Drop Name to be printed and sponsor logo</h3>
+  </div>
+</div>
+<div class="row bg-4 container-fluid" >
+    <div id="droppable" class="col-sm-3 container-fluid" style="margin: 10px">
+        <div>
+          <img  src="Front.jpg" alt="Shirt Image" />
+        </div>
+    </div>  
+    <div class="col-sm-3" style="margin: 10px">
+        <h4 style="color:white">Drag Your sponsor logo</h4>
+        <img class="draggable " id="Docomologo"src="Docomologo.jpg"/>  <p style="color:white"> Tata Docomo </p>
+		<br /><br />
+	    <img class="draggable " id="Ealogo" src="Ealogo.jpg"/>       <p style="color:white">Ea Sports </p>
+		<br /><br />
+		<img class="draggable " id="Paytmlogo" src="Paytmlogo.jpg"/>   <p style="color:white">Paytm </p>
+		<br /><br />
+	</div>	
+    <div class="col-sm-3" style="margin: 10px">
+        <h4 style="color:white"> Drag Your Crest </h4>             
+	    <img class="draggable " id="Logo1" src="Logo1.png"   />   
+		<br /><br />
+        <img class="draggable " id="Logo2" src="Logo2.png"   />   
+		<br /><br />
+        <img class="draggable " id="Logo1" src="Logo3.png"   />  
+		<br /><br />
+		<table> 
+            <tr>
+            <th style="color:white">Enter Name:</th><td>&nbsp;&nbsp;&nbsp;</td>
+            <td style="color:black"> <input type="text" id="name" value="" /></td><td>&nbsp;&nbsp;&nbsp;</td>
+            <td style="color:black"> <button class="btn btn-primary" id="sub">Submit</button></td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+ 
+<div class="jumbotron row bg-1">
+   <div class="col-sm-12">
+   <h1>Design Your Own Kit</h1>
+   <p class="lead"> This website is brought to You by Rohit Bhattaharya and Sagnik Ghosh. Easy to use,           hastle free. Try it yourself! </p>
+   </div>
+</div> 
+</body>
+</html>
